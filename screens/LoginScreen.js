@@ -23,8 +23,8 @@ const LoginScreen = ({navigation}) => {
         const [messageType, setMessageType] = useState();
 
         const handleLogin = (credentials)=> {
-            const uri = 'http://192.168.1.10:3000/user/signin';
-
+            const uri = 'http://192.168.1.11:3000/user/signin';
+            //http://localhost:3000/user/signin
             axios.post(uri, credentials).then((response) => {
                 const results = response.data;
                 const {message, status, data} = results;

@@ -19,10 +19,11 @@ const RootStack = () => {
                         backgroundcolor: 'transparent'
                     },
                     headerTintColor: primary,
-                   headerTransparent: true,
+                    headerTransparent: true,
                     headerTitle:'',
                     headerShown: false,
                     headerLeft: null,
+                    
                     
             }}
             initialRouteName="LoginScreen"
