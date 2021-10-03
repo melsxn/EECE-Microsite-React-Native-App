@@ -8,6 +8,7 @@ import { StyleSheet, Text, View } from 'react-native';
 //navigations
 import RootStack from './navigator/RootStack';
 
+
 export default function App() {
   return <RootStack />
 }

@@ -4,8 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { InnerContainer, StyledContainer } from '../components/styles';
 import { StatusBar } from 'expo-status-bar';
-
-
+import LoginScreen from './LoginScreen';
 import {
   View,
   Text,
@@ -14,31 +13,46 @@ import {
   StyleSheet, SafeAreaView
 } from 'react-native';
 
-const LoginScreen = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
   return (
     
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', marginTop: 200, marginBottom: 200 }}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', marginTop: 250, marginBottom: 200 }}>
         <StatusBar style="dark" />
         <Button
-          title="Add asodoasd"
-          onPress={() => navigation.navigate("Add", {screen : "AdminScreen" })}
+          title="Add Announcement"
+          onPress={() => navigation.navigate('AddAnnouncement')}
           color="#BD2B0C"
           
         />
         <Button
-          title="Edit"
-          onPress={() => navigation.navigate("Edit")}
+          title="Edit Announcement"
+          onPress={() => navigation.navigate("EditAnnouncement")}
           color="#BD2B0C"
           
         />
         <Button
-          title="Delete"
-          onPress={() => navigation.navigate("Delete")}
+          title="Delete Announcement"
+          onPress={() => navigation.navigate("DeleteAnnouncement")}
           color="#BD2B0C"
         />
         <Button
-          title="Program"
-          onPress={() => navigation.navigate("Program")}
+          title="Add Program"
+          onPress={() => navigation.navigate("AddProgram")}
+          color="#BD2B0C"
+        />
+        <Button
+          title="Edit Program"
+          onPress={() => navigation.navigate("EditProgram")}
+          color="#BD2B0C"
+        />
+        <Button
+          title="Delete Program"
+          onPress={() => navigation.navigate("DeleteProgram")}
+          color="#BD2B0C"
+        />
+        <Button
+          title="Logout"
+          onPress={() => navigation.navigate('LoginScreen')}
           color="#BD2B0C"
         />
         <Image
@@ -58,10 +72,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const AddScreen = () => {
+const AddScreen = ({navigation}) => {
   return (
   <SafeAreaView style={styles.container}>
     <Text>Login Success! UI Temporary for navigation testing</Text>
+
     <StatusBar style="auto" />
   </SafeAreaView>
   );
@@ -83,29 +98,35 @@ const DeleteScreen = () => {
   );
 }
 
-const ProgramScreen = () => {
+const AddProgramScreen = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Program Screen</Text>
+      <Text>Add Program Screen</Text>
     </View>
   );
 }
 
+const EditProgramScreen = () => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Edit Program Screen</Text>
+    </View>
+  );
+}
+
+const DeleteProgramScreen = () => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Delete Program Screen</Text>
+    </View>
+  );
+}
+
+
+
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-const AdminScreen = () => {
-    return (
-      <NavigationContainer independent={true}>
-        <Stack.Navigator screenOptions={{ headerTitle:'', headerLeft: null, }} initialRouteName="Home">
-          <Stack.Screen options={{headerTintColor : '#FFFFFF',}} name="Admin Login" component={LoginScreen} />
-          <Stack.Screen options={{headerTintColor : '#FFFFFF',}} name="Add" component={AddScreen} />
-          <Stack.Screen name="Edit" component={EditScreen} />
-          <Stack.Screen name="Delete" component={DeleteScreen} />
-          <Stack.Screen name="Program" component={ProgramScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+
   
-  export default AdminScreen;
+export default HomeScreen;
