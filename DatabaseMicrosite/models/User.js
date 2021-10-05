@@ -7,14 +7,16 @@ const UserSchema = new Schema({
 });
 
 const DataSchema = new Schema({
-    Title: String
-})
+    DataType: String,
+    Title: String,
+    Date : String,
+    Description : String
+});
 
-// const UserSchema = new Schema({
-//     username : {type: String, required: true},
-//     password : {type: String, required: true}
-// });
 
-const User = mongoose.model('User', UserSchema);
 
-module.exports =User;
+const User = mongoose.model('User', UserSchema, 'users');
+const AnnoucementData = mongoose.model('AnnoucementData', DataSchema, 'users');
+
+
+module.exports = User;
