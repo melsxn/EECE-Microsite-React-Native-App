@@ -21,9 +21,9 @@ router.post('/send2', (req, res)=> {
 
 
     if (DataType == "" || Title == "" || Date == "" || Description == ""){
-        res.json({
+        return res.json({
             status: "FAILED",
-            message: "Empty data, Please check again."
+            message: "Empty input fields, Please check again."
         })
     } else {
         console.log(req.body);
@@ -51,5 +51,29 @@ router.post('/send2', (req, res)=> {
     
 
 })
+
+router.post('/send3', (req, res)=> {
+    let {DataType, Title, Date, Description} = req.body;
+
+    console.log(req.body);
+    res.send("posted");
+    const newAnnouncement = new AnnoucementData({
+        DataType,
+        Title,
+        Date,
+        Description
+    });
+
+    newAnnouncement.save().then(result =>{
+        res.json({
+            status:"SUCCESS",
+            message: "hahaha success",
+            data : result,
+        })
+    })
+})
+
+
+
 
 module.exports=router;

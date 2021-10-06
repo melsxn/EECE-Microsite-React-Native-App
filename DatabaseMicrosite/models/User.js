@@ -13,10 +13,8 @@ const DataSchema = new Schema({
     Description : String
 });
 
-
-
-const User = mongoose.model('User', UserSchema, 'users');
-const AnnoucementData = mongoose.model('AnnoucementData', DataSchema, 'users');
-
+const User = mongoose.model('User', UserSchema, 'users')
+const AnnoucementData = mongoose.model('AnnoucementData', DataSchema, 'users')
 
 module.exports = User;
+module.exports = AnnoucementData;
