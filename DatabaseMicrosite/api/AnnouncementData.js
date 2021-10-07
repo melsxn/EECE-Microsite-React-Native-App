@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const AnnoucementData = require('../models/User');
+const AnnoucementData = require('../models/AnnoucementData');
 
 
 router.get('/test2',(req,res) => {
@@ -15,6 +15,7 @@ router.get('/test2',(req,res) => {
     })
    
 });
+
 
 router.post('/send2', (req, res)=> {
     let {DataType, Title, Date, Description} = req.body;

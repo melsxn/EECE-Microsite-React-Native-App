@@ -44,33 +44,11 @@ router.post('/send', (req, res)=> {
     })
 })
 
-router.post('/send4', (req, res)=> {
-    let {DataType, Title, Date, Description} = req.body;
-
-    console.log(req.body);
-    res.send("posted");
-    const newAnnouncement = new User({
-        DataType,
-        Title,
-        Date,
-        Description
-    });
-
-    newAnnouncement.save().then(result =>{
-        res.json({
-            status:"SUCCESS",
-            message: "hahaha success",
-            data : result,
-        })
-    })
-})
-
-
 //sign in
 router.post('/signin', (req, res) => {
     let {username, password} = req.body;
-//    username = username.trim();
-//    password = password.trim();
+    username = username.trim();
+    password = password.trim();
 
     if (username == "" || password == ""){
         res.json({

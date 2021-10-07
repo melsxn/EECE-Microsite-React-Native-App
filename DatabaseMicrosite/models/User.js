@@ -6,15 +6,7 @@ const UserSchema = new Schema({
     password: String
 });
 
-const DataSchema = new Schema({
-    DataType: String,
-    Title: String,
-    Date : String,
-    Description : String
-});
+const User = mongoose.model('User', UserSchema, 'users');
 
-const User = mongoose.model('User', UserSchema, 'users')
-const AnnoucementData = mongoose.model('AnnoucementData', DataSchema, 'users')
 
 module.exports = User;
-module.exports = AnnoucementData;
