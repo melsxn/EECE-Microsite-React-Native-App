@@ -17,10 +17,11 @@ router.get('/test2',(req,res) => {
 });
 
 
-router.post('/send2', (req, res)=> {
+router.post('/addannouncement', (req, res)=> {
     let {DataType, Title, Date, Description} = req.body;
 
-
+    try {
+        
     if (DataType == "" || Title == "" || Date == "" || Description == ""){
         return res.json({
             status: "FAILED",
@@ -28,7 +29,7 @@ router.post('/send2', (req, res)=> {
         })
     } else {
         console.log(req.body);
-        res.send("posted");
+        //res.send("posted");
         const newAnnouncement = new AnnoucementData({
             DataType,
             Title,
@@ -49,31 +50,36 @@ router.post('/send2', (req, res)=> {
             })
         })
     }
+
+    } catch (error) {
+        console.log(err);
+    }
     
 
 })
 
-router.post('/send3', (req, res)=> {
+router.post('/editannouncement', (req, res)=> {
     let {DataType, Title, Date, Description} = req.body;
-
-    console.log(req.body);
-    res.send("posted");
-    const newAnnouncement = new AnnoucementData({
-        DataType,
-        Title,
-        Date,
-        Description
-    });
-
-    newAnnouncement.save().then(result =>{
-        res.json({
-            status:"SUCCESS",
-            message: "hahaha success",
-            data : result,
-        })
-    })
+    // WIP edit announcement
 })
 
+
+router.delete('/deleteannouncement', (req, res)=> {
+    let {DataType, Title, Date, Description} = req.body;
+    console.log(req.body);
+
+    if (Title == ""){
+        res.json({
+            status: "FAILED",
+            message: "Empty credentials"
+        })
+    } else {
+        AnnoucementData.find({Title})
+        .then(data => {})
+        AnnoucementData.deleteOne
+        
+    }
+})
 
 
 
