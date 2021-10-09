@@ -29,7 +29,6 @@ router.post('/addannouncement', (req, res)=> {
         })
     } else {
         console.log(req.body);
-        //res.send("posted");
         const newAnnouncement = new AnnoucementData({
             DataType,
             Title,
@@ -52,7 +51,7 @@ router.post('/addannouncement', (req, res)=> {
     }
 
     } catch (error) {
-        console.log(err);
+        console.log(error);
     }
     
 
@@ -64,23 +63,30 @@ router.post('/editannouncement', (req, res)=> {
 })
 
 
-router.delete('/deleteannouncement', (req, res)=> {
-    let {DataType, Title, Date, Description} = req.body;
+
+router.post('/deleteannouncement', (req, res)=> {
+    let {Title} = req.body;
     console.log(req.body);
 
-    if (Title == ""){
-        res.json({
-            status: "FAILED",
-            message: "Empty credentials"
-        })
-    } else {
-        AnnoucementData.find({Title})
-        .then(data => {})
-        AnnoucementData.deleteOne
-        
-    }
+    AnnoucementData.findOneAndDelete({'Title' : Title},  function (err, docs) {
+        if (err){
+            console.log(err)
+        }
+        else if(docs == null){
+            res.json({
+                status:"FAILED",
+                message: "The Title is not found in the database. Please try again.",
+            })    
+        }
+        else{
+            res.json({
+                status:"SUCCESS",
+                message: "hahaha success",
+                data : docs,
+            })  
+        }
+    })
 })
-
 
 
 module.exports=router;
