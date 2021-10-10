@@ -1,28 +1,16 @@
 const express = require('express');
+const ProgramData = require('../models/ProgramData');
 const router = express.Router();
 
 
-const AnnoucementData = require('../models/AnnoucementData');
 
 
-router.get('/test2',(req,res) => {
-    AnnoucementData.find({}, (err,data)=> {
-        if(!err) {
-            res.send(data);
-        } else {
-            console.log(err);
-        }
-    })
-   
-});
-
-
-router.post('/addannouncement', (req, res)=> {
-    let { Title, Date, Description} = req.body;
+router.post('/addprogram', (req, res)=> {
+    let { TitleProgram, Date, Description} = req.body;
 
     try {
         
-    if (Title == "" || Date == "" || Description == ""){
+    if (TitleProgram == "" || Date == "" || Description == ""){
         return res.json({
             status: "FAILED",
             message: "Empty input fields, Please check again."
@@ -30,12 +18,12 @@ router.post('/addannouncement', (req, res)=> {
     } else {
         console.log(req.body);
         
-        const newAnnouncement = new AnnoucementData({
-            Title,
+        const newProgram = new ProgramData({
+            TitleProgram,
             Date,
             Description
         });
-        newAnnouncement.save().then(result => {
+        newProgram.save().then(result => {
             res.json({
                 status:"SUCCESS",
                 message: "hahaha success",
@@ -57,11 +45,11 @@ router.post('/addannouncement', (req, res)=> {
 
 })
 
-router.post('/editannouncement', (req, res)=> {
-    let {Title, Description} = req.body;
+router.post('/editprogram', (req, res)=> {
+    let {TitleProgram, Description} = req.body;
     console.log(req.body);
 
-    AnnoucementData.findOneAndUpdate({'Title' : Title}, {$set : {'Description' : Description}},  function (err, docs) {
+    ProgramData.findOneAndUpdate({'TitleProgram' : TitleProgram}, {$set : {'Description' : Description}},  function (err, docs) {
         if (err){
             console.log(err)
         }
@@ -85,11 +73,11 @@ router.post('/editannouncement', (req, res)=> {
 
 
 
-router.post('/deleteannouncement', (req, res)=> {
-    let {Title} = req.body;
+router.post('/deleteprogram', (req, res)=> {
+    let {TitleProgram} = req.body;
     console.log(req.body);
 
-    AnnoucementData.findOneAndDelete({'Title' : Title},  function (err, docs) {
+    ProgramData.findOneAndDelete({'TitleProgram' : TitleProgram},  function (err, docs) {
         if (err){
             console.log(err)
         }
@@ -108,6 +96,5 @@ router.post('/deleteannouncement', (req, res)=> {
         }
     })
 })
-
 
 module.exports=router;
