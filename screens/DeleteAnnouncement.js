@@ -1,27 +1,74 @@
 import React from "react";
 import { View, StyleSheet, TextInput, Text, Button } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Formik } from "formik";
+
+import axios from "axios";
 
 const DeleteAnnounce = () => {
+
+  const handleDelete = (credentials)=> {
+    const uri = 'http://192.168.1.11:3000/announcementdata/deleteannouncement';
+    //http://localhost:3000/announcementdata/editannouncement
+    axios.post(uri, credentials).then((response) => {
+        const results = response.data;
+        const {message, status, data} = results;
+        
+        console.log(message);
+        // if condition here to direct to admin ui 
+        if(status !== 'SUCCESS'){
+            handleMessage(message,status);
+        } else {
+            navigation.navigate('Afterlog');
+        }
+        
+    })
+    .catch(error => {
+        console.log("error");
+    })
+}
+
+const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message);
+    setMessageType(type);
+}
+
+
   return (
-    <View>
-    <View style={styles.header}>
-      <Icon name='arrow-left' size={20} style={styles.icon}/>
-      <Text style={styles.screenName}>Delete Announcements</Text>
-    </View>
-    <View style={styles.search}>
-      <TextInput  
-      placeholder={'    Search title of Announcement here'}
-      style={styles.searchBox}/>
-      <Icon name='search' size={20} style={styles.icon2}/>
-    </View>
-    <View style={styles.forButton}>
-     <Button
-        title="Delete"
-        color='#000000'
-      />
-      </View>
-    </View>
+    <Formik
+    initialValues={{ Title:'' }}
+    onSubmit={(values) => {
+        console.log(values);
+  
+        handleDelete(values);
+        
+    }}
+  >{({handleChange,handleBlur,handleSubmit, values}) => (
+            <View>
+            <View style={styles.header}>
+              <Icon name='arrow-left' size={20} style={styles.icon}/>
+              <Text style={styles.screenName}>Delete Announcements</Text>
+            </View>
+            <View style={styles.search}>
+              <TextInput  
+              placeholder={'    Search title of Announcement here'}
+              style={styles.searchBox}
+              onChangeText={handleChange('Title')}
+              values={values.Title}
+              />
+              <Icon name='search' size={20} style={styles.icon2}/>
+            </View>
+            <View style={styles.forButton}>
+             <Button
+                title="Delete"
+                color='#000000'
+                onPress={handleSubmit}
+              />
+              </View>
+            </View>
+  )}
+  
+  </Formik>
   );
 }
 
