@@ -8,31 +8,24 @@ import axios from "axios";
 const DeleteAnnounce = () => {
 
   const handleDelete = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/announcementdata/deleteannouncement';
+    const uri = 'http://192.168.1.10:3000/announcementdata/deleteannouncement';
     //http://localhost:3000/announcementdata/editannouncement
     axios.post(uri, credentials).then((response) => {
         const results = response.data;
         const {message, status, data} = results;
-        
-        console.log(message);
-        // if condition here to direct to admin ui 
+        console.log(status);
+        // if condition here for delete output
         if(status !== 'SUCCESS'){
-            handleMessage(message,status);
+          console.log("Not Success");
         } else {
-            navigation.navigate('Afterlog');
+          console.log("Announcement Successfully deleted!!");
         }
         
     })
     .catch(error => {
-        console.log("error");
+        console.log("There was an error!");
     })
 }
-
-const handleMessage = (message, type = 'FAILED') => {
-    setMessage(message);
-    setMessageType(type);
-}
-
 
   return (
     <Formik
