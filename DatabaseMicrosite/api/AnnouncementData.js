@@ -58,10 +58,10 @@ router.post('/addannouncement', (req, res)=> {
 })
 
 router.post('/editannouncement', (req, res)=> {
-    let {Title, Description} = req.body;
+    let {Title, Date, Description} = req.body;
     console.log(req.body);
 
-    AnnoucementData.findOneAndUpdate({'Title' : Title}, {$set : {'Description' : Description}},  function (err, docs) {
+    AnnoucementData.findOneAndUpdate({'Title' : Title}, {$set : {'Date' : Date, 'Description' : Description}},  function (err, docs) {
         if (err){
             console.log(err)
         }
@@ -102,7 +102,7 @@ router.post('/deleteannouncement', (req, res)=> {
         else{
             res.json({
                 status:"SUCCESS",
-                message: "hahaha success",
+                message: "Delete Success",
                 data : docs,
             })  
         }
