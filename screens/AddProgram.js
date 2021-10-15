@@ -11,6 +11,8 @@ import {
   TextInput,
   Picker,
 } from 'react-native';
+import { Formik } from 'formik';
+import axios from 'axios';
 
 const styles = StyleSheet.create({
   textInput: {
@@ -19,6 +21,7 @@ const styles = StyleSheet.create({
     borderRadius:6,
     marginBottom:10,
     width:350,
+
   },
   logo: {
     width: "100%",
@@ -69,9 +72,42 @@ const styles = StyleSheet.create({
   }
 })
 
-function AddProgramScreen ({ navigation }) {
+const AddProgramScreen = () => {
   const [selectedValue, setSelectedValue] = useState("java");
+  const handleAdd = (credentials)=> {
+    const uri = 'http://192.168.1.11:3000/programdata/addprogram';
+    axios.post(uri, credentials).then((response) => {
+      const results = response.data;
+      const {message, status, data} = results;
+      console.log(status);
+      
+      // if condition here of add program
+      if(status !== 'SUCCESS'){
+        console.log("Not Success");
+      } else {
+        console.log("Program Successfully added!!");
+      }
+        
+    })
+    .catch(error => {
+        console.log("error");
+    })
+  }
+  const handleMessage = (message, type = 'FAILED') => {
+    setMessage(message);
+    setMessageType(type);
+  }
+  
   return (
+    <Formik
+    initialValues={{ TitleProgram:'', Date:'', Description:'' }}
+    onSubmit={(values) => {
+        console.log(values);
+  
+        handleAdd(values);
+        
+    }}
+  >{({handleChange,handleBlur,handleSubmit, values}) => (
     <View style={{ flex: 1, alignContent: 'center',  marginTop: 200, marginBottom: 100 }}>
       <Image
         style={styles.logo}
@@ -90,6 +126,8 @@ function AddProgramScreen ({ navigation }) {
         <TextInput
           placeholder="    Program Name"
           placeholderTextColor="#666666"
+          onChangeText={handleChange('TitleProgram')}
+          values={values.TitleProgram}
           style={styles.searchBox}
         />
       </View>
@@ -97,6 +135,8 @@ function AddProgramScreen ({ navigation }) {
         <TextInput
           placeholder="    Date"
           placeholderTextColor="#666666"
+          onChangeText={handleChange('Date')}
+          values={values.Date}
           style={styles.searchBox}
         />
       </View>
@@ -106,6 +146,8 @@ function AddProgramScreen ({ navigation }) {
           numberOfLines={10}
           placeholder="   Description"
           placeholderTextColor="#666666"
+          onChangeText={handleChange('Description')}
+          values={values.Description}
           style={styles.textInput}
         />
       </View>
@@ -113,6 +155,7 @@ function AddProgramScreen ({ navigation }) {
        <Button 
           title="Add"
           color="#000000"
+          onPress={handleSubmit}
         />
         <View style={styles.space} />
         <Button
@@ -124,6 +167,8 @@ function AddProgramScreen ({ navigation }) {
       </View>
 
       </View>
+  )}
+  </Formik>
   )
 }
 
