@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const AddProgramScreen = () => {
+const AddProgramScreen = ({navigation}) => {
   const [selectedValue, setSelectedValue] = useState("java");
   const handleAdd = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/programdata/addprogram';
+    const uri = 'http://192.168.1.10:3000/programdata/addprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
