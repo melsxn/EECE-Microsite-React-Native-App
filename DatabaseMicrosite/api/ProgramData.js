@@ -4,7 +4,6 @@ const router = express.Router();
 
 
 
-
 router.post('/addprogram', (req, res)=> {
     let { TitleProgram, Date, Description} = req.body;
 
@@ -46,10 +45,10 @@ router.post('/addprogram', (req, res)=> {
 })
 
 router.post('/editprogram', (req, res)=> {
-    let {TitleProgram, Description} = req.body;
+    let {TitleProgram, Date, Description} = req.body;
     console.log(req.body);
 
-    ProgramData.findOneAndUpdate({'TitleProgram' : TitleProgram}, {$set : {'Description' : Description}},  function (err, docs) {
+    ProgramData.findOneAndUpdate({'TitleProgram' : TitleProgram}, {$set : {'Date' : Date,'Description' : Description}},  function (err, docs) {
         if (err){
             console.log(err)
         }
