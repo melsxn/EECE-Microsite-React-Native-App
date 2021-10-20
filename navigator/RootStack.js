@@ -12,7 +12,7 @@ import EditProgram from '../screens/EditProgram';
 import DeleteProgram from '../screens/DeleteProgram';
 import EditAnnouncement from '../screens/EditAnnouncement';
 import DeleteAnnouncement from '../screens/DeleteAnnouncement';
-
+import Home from '../screens/Home';
 
 const Stack = createNativeStackNavigator();
 const {primary, tertiary} = Colors;
@@ -38,7 +38,7 @@ const RootStack = () => {
             <Stack.Group>
                 <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen options={{headerTintColor : '#FFFFFF',}} name="AdminScreen" component={AdminScreen} />
-                
+                <Stack.Screen name="Home" component={Home} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name="Afterlog" component={Afterlog} />
