@@ -1,23 +1,86 @@
-import React from "react";
-import { View, StyleSheet, TextInput, Text, Button, Alert, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, TextInput, Text, Button, Alert, Image, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Card } from 'react-native-elements'
+import axios from "axios";
 
-const Home = () => {
+
+
+
+function Home() {
+
+  const [Title, setTitle] = useState([]);
+  const [Date, setDate] = useState();
+  const [Description, setDescription] = useState();
+  const[result, setResult] = useState([]);
+
+
+  useEffect(() => {
+      handleEdit()
+  }, [])
+
+  const handleEdit = ()=> {
+    const uri = 'http://192.168.1.9:3000/announcementdata/getannouncement';
+    
+    const credentials = '';
+    axios.post(uri, credentials).then((response) => {
+      const results = response.data;
+     const {status, Date, data} = results;
+
+      setResult(data)
+
+
+    })
+    .catch(error => {
+        console.log("error");
+    })
+  }
   return (
+    <ScrollView>
     <View>
-      <View style={styles.header}>
-        <Icon name='arrow-left' size={20} style={styles.icon}/>
-        <Text style={styles.screenName}>Home</Text>
-      </View>
-      <View>
-        <Image source={require('../assets/EECE-Banner.jpg')} style={styles.banner} resizeMode="contain"/>
-      </View>
-      <Card>
-        <Text style={styles.title}>News and Announcements</Text>
-      </Card>
+    <View style={styles.header}>
+      <Icon name='arrow-left' size={20} style={styles.icon}/>
+      <Text style={styles.screenName}>Home</Text>
     </View>
+    <View>
+      <Image source={require('../assets/EECE-Banner.jpg')} style={styles.banner} resizeMode="contain"/>
+
+    </View>
+    <DisplayData props = {result} />
+    </View>
+    </ScrollView>
+
+
+
+
   );
+}
+
+const DisplayData = ({props}) => {
+    
+  const {status, message, data} = props;
+  //console.log(props[2].Date)
+    if (props.length > 0) {
+      return(
+        props.map((prop, index) => {
+          
+          return (
+            <Card key ={index}>
+                <Text style={styles.title}>{prop.Title}</Text>
+                <Text >{prop.Date}</Text>
+                <Text >{prop.Description}</Text>
+            </Card>
+        )
+
+        })
+      )
+
+    } else {
+      return(
+        <Text>NONE</Text>
+      )
+    }
+               
 }
 
 const styles = StyleSheet.create({
