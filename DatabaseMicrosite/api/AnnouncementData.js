@@ -5,10 +5,14 @@ const router = express.Router();
 const AnnoucementData = require('../models/AnnoucementData');
 
 
-router.get('/test2',(req,res) => {
-    AnnoucementData.find({}, (err,data)=> {
+router.post('/getannouncement',(req,res) => {
+    AnnoucementData.find({}, (err,docs)=> {
         if(!err) {
-            res.send(data);
+            res.json({
+                status: "FAILED",
+                message: "Empty input fields, Please check again.",
+                data : docs
+            })  
         } else {
             console.log(err);
         }
