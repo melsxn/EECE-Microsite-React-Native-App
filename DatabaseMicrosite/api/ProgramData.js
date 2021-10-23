@@ -4,12 +4,76 @@ const router = express.Router();
 
 
 
+
+router.post('/getbachelor',(req,res) => {
+    const TitleProgram = "Bachelor's Degrees"
+
+    ProgramData.find({'ProgramType' : TitleProgram}, (err,docs)=> {
+        if(docs =="") {
+            res.json({
+                status: "FAILED",
+                message: "Document not found",
+                data : docs
+            })  
+        } else {
+            res.json({
+                status: "SUCCESS",
+                message: "Document found",
+                data : docs
+            })  
+        }
+    })
+   
+});
+
+router.post('/getmaster',(req,res) => {
+    const TitleProgram = "Master's Degrees"
+
+    ProgramData.find({'ProgramType' : TitleProgram}, (err,docs)=> {
+        if(docs =="") {
+            res.json({
+                status: "FAILED",
+                message: "Document not found",
+                data : docs
+            })  
+        } else {
+            res.json({
+                status: "SUCCESS",
+                message: "Document found",
+                data : docs
+            })  
+        }
+    })
+   
+});
+
+router.post('/getPhD',(req,res) => {
+    const TitleProgram = "PhD Programs"
+
+    ProgramData.find({'ProgramType' : TitleProgram}, (err,docs)=> {
+        if(docs =="") {
+            res.json({
+                status: "FAILED",
+                message: "Document not found",
+                data : docs
+            })  
+        } else {
+            res.json({
+                status: "SUCCESS",
+                message: "Document found",
+                data : docs
+            })  
+        }
+    })
+   
+});
+
 router.post('/addprogram', (req, res)=> {
-    let { TitleProgram, Date, Description} = req.body;
+    let { ProgramType, TitleProgram, Date, Description} = req.body;
 
     try {
         
-    if (TitleProgram == "" || Date == "" || Description == ""){
+    if (ProgramType == "" || TitleProgram == "" || Date == "" || Description == ""){
         return res.json({
             status: "FAILED",
             message: "Empty input fields, Please check again."
@@ -18,6 +82,7 @@ router.post('/addprogram', (req, res)=> {
         console.log(req.body);
         
         const newProgram = new ProgramData({
+            ProgramType,
             TitleProgram,
             Date,
             Description
@@ -45,7 +110,7 @@ router.post('/addprogram', (req, res)=> {
 })
 
 router.post('/editprogram', (req, res)=> {
-    let {TitleProgram, Date, Description} = req.body;
+    let {ProgramType, TitleProgram, Date, Description} = req.body;
     console.log(req.body);
 
     ProgramData.findOneAndUpdate({'TitleProgram' : TitleProgram}, {$set : {'Date' : Date,'Description' : Description}},  function (err, docs) {
@@ -75,7 +140,7 @@ router.post('/editprogram', (req, res)=> {
 router.post('/deleteprogram', (req, res)=> {
     let {TitleProgram} = req.body;
     console.log(req.body);
-
+    
     ProgramData.findOneAndDelete({'TitleProgram' : TitleProgram},  function (err, docs) {
         if (err){
             console.log(err)
