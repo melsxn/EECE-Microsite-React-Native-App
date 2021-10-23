@@ -14,6 +14,11 @@ import EditAnnouncement from '../screens/EditAnnouncement';
 import DeleteAnnouncement from '../screens/DeleteAnnouncement';
 import Home from '../screens/Home';
 import ProgramPage from '../screens/ProgramPage';
+import BachelorScreen from '../screens/BachelorScreen';
+import MasterScreen from '../screens/MasterScreen';
+import PhDScreen from '../screens/PhDScreen';
+
+
 
 const Stack = createNativeStackNavigator();
 const {primary, tertiary} = Colors;
@@ -41,6 +46,9 @@ const RootStack = () => {
                 <Stack.Screen options={{headerTintColor : '#FFFFFF',}} name="AdminScreen" component={AdminScreen} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="ProgramPage" component={ProgramPage} />
+                <Stack.Screen name="BachelorScreen" component={BachelorScreen} />
+                <Stack.Screen name="MasterScreen" component={MasterScreen} />
+                <Stack.Screen name="PhDScreen" component={PhDScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name="Afterlog" component={Afterlog} />
