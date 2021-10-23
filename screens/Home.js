@@ -20,7 +20,7 @@ function Home() {
   }, [])
 
   const handleEdit = ()=> {
-    const uri = 'http://192.168.1.9:3000/announcementdata/getannouncement';
+    const uri = 'http://192.168.1.11:3000/announcementdata/getannouncement';
     
     const credentials = '';
     axios.post(uri, credentials).then((response) => {
@@ -67,7 +67,7 @@ const DisplayData = ({props}) => {
           return (
             <Card key ={index}>
                 <Text style={styles.title}>{prop.Title}</Text>
-                <Text >{prop.Date}</Text>
+                <Text style={styles.date}>{prop.Date}</Text>
                 <Text >{prop.Description}</Text>
             </Card>
         )
@@ -105,7 +105,12 @@ const styles = StyleSheet.create({
   },
   title:{
     fontWeight:'bold',
-    fontSize:16
+    fontSize:20
+  },
+  date:{
+    fontWeight:'100',
+    fontSize:12,
+    marginBottom:10
   }
 });
 

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 const DeleteProgramScreen = ({navigation}) =>  {
   const [selectedValue, setSelectedValue] = useState("java");
   const handleDelte = (credentials)=> {
-    const uri = 'http://192.168.1.10:3000/programdata/deleteprogram';
+    const uri = 'http://192.168.1.11:3000/programdata/deleteprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -134,7 +134,7 @@ const DeleteProgramScreen = ({navigation}) =>  {
 
       <View style={{padding:10}}  >
        <Button 
-          title="Add"
+          title="Delete"
           color="#000000"
           onPress={handleSubmit}
         />

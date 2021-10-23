@@ -7,6 +7,7 @@ import { View } from "react-native";
 
 
 
+
 //icon import
 import{Octicons, Ionicons, Fontisto} from '@expo/vector-icons';
 
@@ -23,13 +24,13 @@ const LoginScreen = ({navigation}) => {
         const [messageType, setMessageType] = useState();
 
         const handleLogin = (credentials)=> {
-            const uri = 'http://192.168.1.9:3000/user/signin';
+            const uri = 'http://192.168.1.11:3000/user/signin';
             //http://localhost:3000/user/signin
             axios.post(uri, credentials).then((response) => {
                 const results = response.data;
                 const {message, status, data} = results;
                 
-                console.log(status);
+                //console.log(data);
                 // if condition here to direct to admin ui 
                 if(status !== 'SUCCESS'){
                     handleMessage(message,status);
@@ -89,7 +90,7 @@ const LoginScreen = ({navigation}) => {
                                 placeholderTextColor={darklight}
                                 onChangeText={handleChange('password')}
                                 onBlur={handleBlur('password')}
-                                values={values.passwordd}
+                                values={values.password}
                                 secureTextEntry={hidePassword}
 
                                 
@@ -99,7 +100,7 @@ const LoginScreen = ({navigation}) => {
                                 <ButtonText>Sign in</ButtonText>
                             </StyledButton>
                             <DividerLine>_______________________________________________</DividerLine>
-                            <ButtonBack  onPress={handleSubmit}>
+                            <ButtonBack  onPress={() => navigation.navigate("Home")}>
                                 <ButtonText>Back</ButtonText>
                             </ButtonBack>
                         </StyledFormArea>

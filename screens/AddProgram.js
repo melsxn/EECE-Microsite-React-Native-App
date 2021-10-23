@@ -39,6 +39,14 @@ const styles = StyleSheet.create({
     color:'#FFFFFF',
     marginBottom:10
   },
+
+  screenName2:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:20,
+    color:'#000000',
+    marginBottom:10
+  },
   icon:{
     marginTop:40,
     marginLeft:15
@@ -73,9 +81,9 @@ const styles = StyleSheet.create({
 })
 
 const AddProgramScreen = ({navigation}) => {
-  const [selectedValue, setSelectedValue] = useState("java");
+  const [selectedValue, setSelectedValue] = useState();
   const handleAdd = (credentials)=> {
-    const uri = 'http://192.168.1.10:3000/programdata/addprogram';
+    const uri = 'http://192.168.1.11:3000/programdata/addprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -93,14 +101,11 @@ const AddProgramScreen = ({navigation}) => {
         console.log("error");
     })
   }
-  const handleMessage = (message, type = 'FAILED') => {
-    setMessage(message);
-    setMessageType(type);
-  }
+
   
   return (
     <Formik
-    initialValues={{ TitleProgram:'', Date:'', Description:'' }}
+    initialValues={{ProgramType:'', TitleProgram:'', Date:'', Description:'' }}
     onSubmit={(values) => {
         console.log(values);
   
@@ -113,16 +118,27 @@ const AddProgramScreen = ({navigation}) => {
         style={styles.logo}
         source={require('../assets/EECE-Banner.jpg')}
       />
+      <View> 
       <Picker
         selectedValue={selectedValue}
         style={{ height: 30, width: 200 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}  
+
+        
+
+        
       >
-        <Picker.Item label="Bachelor's Degrees" value="BS" />
-        <Picker.Item label="Master's Degrees" value="MS" />
-        <Picker.Item label="PhD Programs" value="PP" />
+        <Picker.Item label="Choose Program" value="" />
+        <Picker.Item label="Bachelor's Degrees" value="Bachelor's Degrees" />
+        <Picker.Item label="Master's Degrees" value="Master's Degrees" />
+        <Picker.Item label="PhD Programs" value="PhD Programs" />
       </Picker>
+        
       <View style={styles.search}>
+        <TextInput style={styles.screenName2}
+        onChangeText={handleChange('TitleProgram')}
+        values={values.TitleProgram}
+        >{selectedValue}</TextInput>
         <TextInput
           placeholder="    Program Name"
           placeholderTextColor="#666666"
@@ -130,6 +146,7 @@ const AddProgramScreen = ({navigation}) => {
           values={values.TitleProgram}
           style={styles.searchBox}
         />
+
       </View>
       <View style={styles.search}>
         <TextInput
@@ -163,6 +180,7 @@ const AddProgramScreen = ({navigation}) => {
           onPress={() => navigation.navigate("AdminScreen")}
           color="#000000"
         />
+      </View>
 
       </View>
 

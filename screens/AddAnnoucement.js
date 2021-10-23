@@ -8,14 +8,13 @@ import axios from "axios";
 
 const AddAnnounce = () => {
   const handleAdd = (credentials)=> {
-    const uri = 'http://192.168.1.10:3000/announcementdata/addannouncement';
-    //http://localhost:3000/announcementdata/editannouncement
+    const uri = 'http://192.168.1.11:3000/announcementdata/addannouncement';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
       console.log(status);
       
-      // if condition here to direct to admin ui 
+      // if condition here to 
       if(status !== 'SUCCESS'){
         console.log("Not Success");
       } else {

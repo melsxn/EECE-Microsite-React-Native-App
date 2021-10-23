@@ -75,7 +75,7 @@ const EditProgramScreen = ({navigation}) =>  {
   const [selectedValue, setSelectedValue] = useState("java");
 
   const handleEdit = (credentials)=> {
-    const uri = 'http://192.168.1.10:3000/programdata/editprogram';
+    const uri = 'http://192.168.1.11:3000/programdata/editprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;

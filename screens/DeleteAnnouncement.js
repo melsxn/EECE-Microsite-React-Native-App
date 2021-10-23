@@ -8,7 +8,7 @@ import axios from "axios";
 const DeleteAnnounce = () => {
 
   const handleDelete = (credentials)=> {
-    const uri = 'http://192.168.1.10:3000/announcementdata/deleteannouncement';
+    const uri = 'http://192.168.1.11:3000/announcementdata/deleteannouncement';
     //http://localhost:3000/announcementdata/editannouncement
     axios.post(uri, credentials).then((response) => {
         const results = response.data;
