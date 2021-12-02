@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text, Button, Alert } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -6,9 +6,13 @@ import { Formik } from "formik";
 
 import axios from "axios";
 
-const AddAnnounce = () => {
+const AddAnnounce = ({navigation}) => {
+
+  const [message, setMessage] = useState();
+
+
   const handleAdd = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/announcementdata/addannouncement';
+    const uri = 'http://192.168.1.10:3000/announcementdata/addannouncement';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -17,8 +21,10 @@ const AddAnnounce = () => {
       // if condition here to 
       if(status !== 'SUCCESS'){
         console.log("Not Success");
+        setMessage(message);
       } else {
         console.log("Announcement Successfully added!!");
+        setMessage(message);
       }
         
     })
@@ -26,10 +32,7 @@ const AddAnnounce = () => {
         console.log("error");
     })
 }
-const handleMessage = (message, type = 'FAILED') => {
-  setMessage(message);
-  setMessageType(type);
-}
+
   return (
 <Formik
     initialValues={{ Title:'', Date:'', Description:'' }}
@@ -42,10 +45,12 @@ const handleMessage = (message, type = 'FAILED') => {
   >{({handleChange,handleBlur,handleSubmit, values}) => (
     <View>
     <View style={styles.header}>
-      <Icon name='arrow-left' size={20} style={styles.icon}/>
+
       <Text style={styles.screenName}>Add Announcements</Text>
+      
     </View>
     <View style={styles.search}>
+    <Text style={styles.screenName2}>{message}</Text>
       <TextInput  
       placeholder={'   Title of Announcement'}
       style={styles.searchBox}
@@ -67,11 +72,22 @@ const handleMessage = (message, type = 'FAILED') => {
       onChangeText={handleChange('Description')}
       values={values.Description}
       />
+      
+      <View style={{padding:20}}>
        <Button
-        title="Submit"
+        title="                            Submit                          "
         color='#000000'
         onPress={handleSubmit}
       />
+      <View style={styles.space} />
+        <Button
+          title="Back"
+          onPress={() => navigation.navigate("AdminScreen")}
+          color="#000000"
+        />
+      
+      </View>
+      
     </View>
     </View>
   )}
@@ -87,7 +103,14 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontWeight:'bold',
     fontSize:20,
-    color:'#FFFFFF',
+    color:'#000000',
+    marginBottom:10
+  },
+  screenName2:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:20,
+    color:'#FF0000',
     marginBottom:10
   },
   icon:{
@@ -97,7 +120,7 @@ const styles = StyleSheet.create({
   search:{
     alignItems:'center',
     flexDirection:'column',
-    marginTop:20,
+    marginTop:60,
   },
   searchBox:{
     height:35,
@@ -105,6 +128,10 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:6,
     marginBottom:10
+  },
+  space:{
+    height:10,
+    width:10
   }
 });
 

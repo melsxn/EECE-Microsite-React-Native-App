@@ -17,7 +17,7 @@ function BachelorScreen() {
   }, [])
 
   const handleEdit = ()=> {
-    const uri = 'http://192.168.1.11:3000/programdata/getbachelor';
+    const uri = 'http://192.168.1.10:3000/programdata/getbachelor';
     
     const credentials = '';
     axios.post(uri, credentials).then((response) => {
@@ -36,7 +36,6 @@ function BachelorScreen() {
     <ScrollView>
     <View>
     <View style={styles.header}>
-      <Icon name='arrow-left' size={20} style={styles.icon}/>
       <Text style={styles.screenName}>Bachelor's Degrees</Text>
     </View>
     <View>
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontWeight:'bold',
     fontSize:20,
-    color:'#FFFFFF',
+    color:'#000000',
     marginBottom:10
   },
   banner:{

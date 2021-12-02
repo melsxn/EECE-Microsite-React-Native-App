@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text, Button, Alert } from "react-native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Formik } from "formik";
 
 import axios from "axios";
 
-const EditAnnounce = () => {
+const EditAnnounce = ({navigation}) => {
+
+  const [message, setMessage] = useState();
+
   const handleEdit = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/announcementdata/editannouncement';
+    const uri = 'http://192.168.1.10:3000/announcementdata/editannouncement';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -16,8 +19,10 @@ const EditAnnounce = () => {
       // if condition here for update output
       if(status !== 'SUCCESS'){
         console.log("Not Success");
+        setMessage(message);
       } else {
         console.log("Description successfully updated!");
+        setMessage(message);
       }
         
     })
@@ -38,10 +43,10 @@ const EditAnnounce = () => {
   >{({handleChange,handleBlur,handleSubmit, values}) => (
         <View>
         <View style={styles.header}>
-          <Icon name='arrow-left' size={20} style={styles.icon}/>
           <Text style={styles.screenName}>Edit Announcements</Text>
         </View>
         <View style={styles.search}>
+        <Text style={styles.screenName2}>{message}</Text>
           <TextInput  
           placeholder={'   Title of Announcement'}
           style={styles.searchBox}
@@ -63,11 +68,20 @@ const EditAnnounce = () => {
           values={values.Description}
           required={true}
           />
+          <View style={{padding:10}}>
           <Button
-            title="Update/Edit"
+            title="        Update/Edit         "
             color='#000000'
             onPress={handleSubmit}
           />
+          <View style={styles.space} />
+          <Button
+            title="Back"
+            onPress={() => navigation.navigate("AdminScreen")}
+            color="#000000"
+          />
+          </View>
+
         </View>
         </View>
   )}
@@ -84,7 +98,14 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontWeight:'bold',
     fontSize:20,
-    color:'#FFFFFF',
+    color:'#000000',
+    marginBottom:10
+  },
+  screenName2:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:20,
+    color:'#FF0000',
     marginBottom:10
   },
   icon:{
@@ -102,6 +123,10 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:6,
     marginBottom:10
+  },
+  space:{
+    height:10,
+    width:10
   }
 });
 

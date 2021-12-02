@@ -17,7 +17,7 @@ function MasterScreen() {
   }, [])
 
   const handleEdit = ()=> {
-    const uri = 'http://192.168.1.11:3000/programdata/getmaster';
+    const uri = 'http://192.168.1.10:3000/programdata/getmaster';
     
     const credentials = '';
     axios.post(uri, credentials).then((response) => {
@@ -36,8 +36,8 @@ function MasterScreen() {
     <ScrollView>
     <View>
     <View style={styles.header}>
-      <Icon name='arrow-left' size={20} style={styles.icon}/>
-      <Text style={styles.screenName}>Bachelor's Degrees</Text>
+
+      <Text style={styles.screenName}>Master's Degrees</Text>
     </View>
     <View>
       <Image source={require('../assets/EECE-Banner.jpg')} style={styles.banner} resizeMode="contain"/>

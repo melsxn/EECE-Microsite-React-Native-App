@@ -39,6 +39,20 @@ const styles = StyleSheet.create({
     color:'#FFFFFF',
     marginBottom:10
   },
+  screenName2:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:20,
+    color:'#FF0000',
+    marginBottom:10
+  },
+  screenName3:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:14,
+    color:'#FF0000',
+    marginBottom:10
+  },
   icon:{
     marginTop:40,
     marginLeft:15
@@ -74,8 +88,9 @@ const styles = StyleSheet.create({
 
 const DeleteProgramScreen = ({navigation}) =>  {
   const [selectedValue, setSelectedValue] = useState("java");
+  const [message, setMessage] = useState();
   const handleDelte = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/programdata/deleteprogram';
+    const uri = 'http://192.168.1.10:3000/programdata/deleteprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -84,8 +99,10 @@ const DeleteProgramScreen = ({navigation}) =>  {
       // if condition here of delete program
       if(status !== 'SUCCESS'){
         console.log("Not Success");
+        setMessage(message);
       } else {
         console.log("Program Successfully Delete!!");
+        setMessage(message);
       }
         
     })
@@ -133,6 +150,7 @@ const DeleteProgramScreen = ({navigation}) =>  {
       </View>
 
       <View style={{padding:10}}  >
+      <Text style={styles.screenName3}>{message}</Text>
        <Button 
           title="Delete"
           color="#000000"

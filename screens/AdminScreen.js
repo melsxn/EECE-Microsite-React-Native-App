@@ -16,45 +16,55 @@ import {
 const HomeScreen = ({navigation}) => {
   return (
     
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-evenly', marginTop: 250, marginBottom: 200 }}>
+      <View style={{ flex: 1, alignItems: 'center', marginTop: 200, marginBottom: 150 }}>
         <StatusBar style="dark" />
+        <View style={{padding:10, marginTop:-50}}>
         <Button
           title="Add Announcement"
           onPress={() => navigation.navigate('AddAnnouncement')}
           color="#BD2B0C"
+          style ={{marginBottom: 10}}
           
         />
+        <Text/>
         <Button
           title="Edit Announcement"
           onPress={() => navigation.navigate("EditAnnouncement")}
           color="#BD2B0C"
           
         />
+        <Text/>
         <Button
           title="Delete Announcement"
           onPress={() => navigation.navigate("DeleteAnnouncement")}
           color="#BD2B0C"
         />
+        <Text/>
         <Button
           title="Add Program"
           onPress={() => navigation.navigate("AddProgram")}
           color="#BD2B0C"
         />
+        <Text/>
         <Button
           title="Edit Program"
           onPress={() => navigation.navigate("EditProgram")}
           color="#BD2B0C"
         />
+        <Text/>
         <Button
           title="Delete Program"
           onPress={() => navigation.navigate("DeleteProgram")}
           color="#BD2B0C"
         />
+        <Text/>
         <Button
           title="Logout"
           onPress={() => navigation.navigate('LoginScreen')}
           color="#BD2B0C"
         />
+        
+        </View>
         <Image
           style={styles.logo}
           source={require('../assets/EECE-Banner.jpg')}
@@ -71,61 +81,6 @@ const styles = StyleSheet.create({
     top: -200,
   }
 });
-
-const AddScreen = ({navigation}) => {
-  return (
-  <SafeAreaView style={styles.container}>
-    <Text>Login Success! UI Temporary for navigation testing</Text>
-
-    <StatusBar style="auto" />
-  </SafeAreaView>
-  );
-}
-
-const EditScreen = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Edit Screen</Text>
-    </View>
-  );
-}
-
-const DeleteScreen = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Delete Screen</Text>
-    </View>
-  );
-}
-
-const AddProgramScreen = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Add Program Screen</Text>
-    </View>
-  );
-}
-
-const EditProgramScreen = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Edit Program Screen</Text>
-    </View>
-  );
-}
-
-const DeleteProgramScreen = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Delete Program Screen</Text>
-    </View>
-  );
-}
-
-
-
-const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
 
 
   

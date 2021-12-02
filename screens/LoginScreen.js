@@ -3,7 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { Colors, InnerContainer, MicrositeBanner, MicrositeLoginTitle, MicrositeTitle, StyledContainer, StyledFormArea, StyledTextInput, StyledInputLabel, StyledButton, ButtonText, LeftIcon, RightIcon, MsgBox, DividerLine, ButtonBack} from "../components/styles";
 
 import { Formik } from "formik";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
+
 
 
 
@@ -24,7 +25,7 @@ const LoginScreen = ({navigation}) => {
         const [messageType, setMessageType] = useState();
 
         const handleLogin = (credentials)=> {
-            const uri = 'http://192.168.1.11:3000/user/signin';
+            const uri = 'http://192.168.1.10:3000/user/signin';
             //http://localhost:3000/user/signin
             axios.post(uri, credentials).then((response) => {
                 const results = response.data;
@@ -52,8 +53,10 @@ const LoginScreen = ({navigation}) => {
         
 
     return(
+    <ScrollView>
         <StyledContainer>
             <StatusBar style="light" />
+            
             <InnerContainer>
                 <MicrositeBanner source={require('../assets/EECE-Banner.jpg')}></MicrositeBanner>
                 <MicrositeTitle>Mapúa EECE Microsite</MicrositeTitle>
@@ -75,7 +78,7 @@ const LoginScreen = ({navigation}) => {
                             <MyTextInput
                                 label="Username"
                                 icon="person"
-                                placeholder="melsonziolocanlas"
+                                placeholder="username"
                                 placeholderTextColor={darklight}
                                 onChangeText={handleChange('username')}
                                 onBlur={handleBlur('username')}
@@ -100,7 +103,7 @@ const LoginScreen = ({navigation}) => {
                                 <ButtonText>Sign in</ButtonText>
                             </StyledButton>
                             <DividerLine>_______________________________________________</DividerLine>
-                            <ButtonBack  onPress={() => navigation.navigate("Home")}>
+                            <ButtonBack  onPress={() => navigation.navigate("AddProgram")}>
                                 <ButtonText>Back</ButtonText>
                             </ButtonBack>
                         </StyledFormArea>
@@ -108,7 +111,9 @@ const LoginScreen = ({navigation}) => {
 
                 </Formik>
             </InnerContainer>
+            
         </StyledContainer>
+    </ScrollView>
     );
 };
 

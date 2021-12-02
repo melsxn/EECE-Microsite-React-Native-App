@@ -14,6 +14,7 @@ import {
 import { Formik } from 'formik';
 import axios from 'axios';
 
+
 const styles = StyleSheet.create({
   textInput: {
     color: '#05375a',
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontWeight:'bold',
     fontSize:20,
-    color:'#FFFFFF',
+    color:'#000000',
     marginBottom:10
   },
 
@@ -45,6 +46,14 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     fontSize:20,
     color:'#000000',
+    marginBottom:10
+  },
+
+  screenName3:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:14,
+    color:'#FF0000',
     marginBottom:10
   },
   icon:{
@@ -81,9 +90,14 @@ const styles = StyleSheet.create({
 })
 
 const AddProgramScreen = ({navigation}) => {
+  const [message, setMessage] = useState();
   const [selectedValue, setSelectedValue] = useState();
+  const [titleText, setTitleText] = useState();
+  const onPressTitle = () => {
+    setTitleText("PhD");
+  };
   const handleAdd = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/programdata/addprogram';
+    const uri = 'http://192.168.1.10:3000/programdata/addprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -92,8 +106,10 @@ const AddProgramScreen = ({navigation}) => {
       // if condition here of add program
       if(status !== 'SUCCESS'){
         console.log("Not Success");
+        setMessage(message);
       } else {
         console.log("Program Successfully added!!");
+        setMessage(message);
       }
         
     })
@@ -105,6 +121,7 @@ const AddProgramScreen = ({navigation}) => {
   
   return (
     <Formik
+    enableReinitialize
     initialValues={{ProgramType:'', TitleProgram:'', Date:'', Description:'' }}
     onSubmit={(values) => {
         console.log(values);
@@ -118,27 +135,26 @@ const AddProgramScreen = ({navigation}) => {
         style={styles.logo}
         source={require('../assets/EECE-Banner.jpg')}
       />
-      <View> 
+      <View style={{ marginTop: -80}}> 
+      
       <Picker
-        selectedValue={selectedValue}
+        selectedValue={values.ProgramType}
         style={{ height: 30, width: 200 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}  
-
+        onValueChange={handleChange('ProgramType')}
+        values = {values.ProgramType}
         
-
-        
-      >
-        <Picker.Item label="Choose Program" value="" />
-        <Picker.Item label="Bachelor's Degrees" value="Bachelor's Degrees" />
+      > 
+        <Picker.Item label="Choose Program" value=""  />
+        <Picker.Item label="Bachelor's Degrees" value="Bachelor's Degrees"   />
         <Picker.Item label="Master's Degrees" value="Master's Degrees" />
         <Picker.Item label="PhD Programs" value="PhD Programs" />
       </Picker>
-        
+      
       <View style={styles.search}>
-        <TextInput style={styles.screenName2}
-        onChangeText={handleChange('TitleProgram')}
-        values={values.TitleProgram}
-        >{selectedValue}</TextInput>
+      <Text style={styles.screenName2}
+
+        >{selectedValue}</Text>
+        
         <TextInput
           placeholder="    Program Name"
           placeholderTextColor="#666666"
@@ -169,6 +185,7 @@ const AddProgramScreen = ({navigation}) => {
         />
       </View>
       <View style={{padding:10}}  >
+      <Text style={styles.screenName3}>{message}</Text>
        <Button 
           title="Add"
           color="#000000"

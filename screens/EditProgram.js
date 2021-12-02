@@ -38,6 +38,13 @@ const styles = StyleSheet.create({
     color:'#FFFFFF',
     marginBottom:10
   },
+  screenName2:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:20,
+    color:'#FF0000',
+    marginBottom:10
+  },
   icon:{
     marginTop:40,
     marginLeft:15
@@ -47,6 +54,13 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     marginTop:20,
     paddingLeft:10
+  },
+  screenName3:{
+    alignSelf:'center',
+    fontWeight:'bold',
+    fontSize:14,
+    color:'#FF0000',
+    marginBottom:10
   },
   searchBox:{
     height:35,
@@ -73,9 +87,10 @@ const styles = StyleSheet.create({
 
 const EditProgramScreen = ({navigation}) =>  {
   const [selectedValue, setSelectedValue] = useState("java");
+  const [message, setMessage] = useState();
 
   const handleEdit = (credentials)=> {
-    const uri = 'http://192.168.1.11:3000/programdata/editprogram';
+    const uri = 'http://192.168.1.10:3000/programdata/editprogram';
     axios.post(uri, credentials).then((response) => {
       const results = response.data;
       const {message, status, data} = results;
@@ -84,8 +99,10 @@ const EditProgramScreen = ({navigation}) =>  {
       // if condition here of edit/update program
       if(status !== 'SUCCESS'){
         console.log("Not Success");
+        setMessage(message);
       } else {
         console.log("Program Successfully updated!!");
+        setMessage(message);
       }
         
     })
@@ -100,7 +117,7 @@ const EditProgramScreen = ({navigation}) =>  {
   }
   return (
     <Formik
-    initialValues={{ TitleProgram:'', Date:'', Description:'' }}
+    initialValues={{ProgramType:'', TitleProgram:'', Date:'', Description:'' }}
     onSubmit={(values) => {
         console.log(values);
   
@@ -113,16 +130,22 @@ const EditProgramScreen = ({navigation}) =>  {
         style={styles.logo}
         source={require('../assets/EECE-Banner.jpg')}
       />
+      <View style={{ marginTop: -80}}/> 
       <Picker
-        selectedValue={selectedValue}
+        selectedValue={values.ProgramType}
         style={{ height: 30, width: 200 }}
-        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+        onValueChange={handleChange('ProgramType')}
+        values={values.ProgramType}
+        
+        
       >
-        <Picker.Item label="Bachelor's Degrees" value="BS" />
-        <Picker.Item label="Master's Degrees" value="MS" />
-        <Picker.Item label="PhD Programs" value="PP" />
+        <Picker.Item label="Choose Program" value=""  />
+        <Picker.Item label="Bachelor's Degrees" value="Bachelor's Degrees"   />
+        <Picker.Item label="Master's Degrees" value="Master's Degrees" />
+        <Picker.Item label="PhD Programs" value="PhD Programs" />
       </Picker>
       <View style={styles.search}>
+        
         <TextInput
           placeholder="    Program Name"
           placeholderTextColor="#666666"
@@ -152,6 +175,7 @@ const EditProgramScreen = ({navigation}) =>  {
         />
       </View>
       <View style={{padding:10}}  >
+      <Text style={styles.screenName3}>{message}</Text>
        <Button 
           title="Update"
           color="#000000"

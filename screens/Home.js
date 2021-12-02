@@ -5,13 +5,8 @@ import { Card } from 'react-native-elements'
 import axios from "axios";
 
 
-
-
 function Home() {
 
-  const [Title, setTitle] = useState([]);
-  const [Date, setDate] = useState();
-  const [Description, setDescription] = useState();
   const[result, setResult] = useState([]);
 
 
@@ -20,7 +15,7 @@ function Home() {
   }, [])
 
   const handleEdit = ()=> {
-    const uri = 'http://192.168.1.11:3000/announcementdata/getannouncement';
+    const uri = 'http://192.168.1.10:3000/announcementdata/getannouncement';
     
     const credentials = '';
     axios.post(uri, credentials).then((response) => {
@@ -38,14 +33,14 @@ function Home() {
   return (
     <ScrollView>
     <View>
-    <View style={styles.header}>
-      <Icon name='arrow-left' size={20} style={styles.icon}/>
-      <Text style={styles.screenName}>Home</Text>
-    </View>
+  
     <View>
       <Image source={require('../assets/EECE-Banner.jpg')} style={styles.banner} resizeMode="contain"/>
 
     </View>
+    <Card>
+        <Text style={styles.title}>News and Announcements</Text>
+    </Card>
     <DisplayData props = {result} />
     </View>
     </ScrollView>
