@@ -90,7 +90,7 @@ router.post('/addprogram', (req, res)=> {
         newProgram.save().then(result => {
             res.json({
                 status:"SUCCESS",
-                message: "hahaha success",
+                message: "Program Successfully Added!",
                 data : result,
             })
         }).catch(err => {
@@ -113,7 +113,7 @@ router.post('/editprogram', (req, res)=> {
     let {ProgramType, TitleProgram, Date, Description} = req.body;
     console.log(req.body);
 
-    ProgramData.findOneAndUpdate({'TitleProgram' : TitleProgram}, {$set : {'Date' : Date,'Description' : Description}},  function (err, docs) {
+    ProgramData.findOneAndUpdate({'ProgramType' : ProgramType, 'TitleProgram' : TitleProgram}, {$set : {'Date' : Date,'Description' : Description}},  function (err, docs) {
         if (err){
             console.log(err)
         }
@@ -126,7 +126,7 @@ router.post('/editprogram', (req, res)=> {
         else{
             res.json({
                 status:"SUCCESS",
-                message: "hahaha success",
+                message: "Program Successfully Updated!",
                 data : docs,
             })  
         }
@@ -154,7 +154,7 @@ router.post('/deleteprogram', (req, res)=> {
         else{
             res.json({
                 status:"SUCCESS",
-                message: "hahaha success",
+                message: "Program Successfully Deleted!",
                 data : docs,
             })  
         }

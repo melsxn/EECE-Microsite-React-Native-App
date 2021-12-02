@@ -42,7 +42,7 @@ router.post('/addannouncement', (req, res)=> {
         newAnnouncement.save().then(result => {
             res.json({
                 status:"SUCCESS",
-                message: "hahaha success",
+                message: "Announcement Successfully added!!",
                 data : result,
             })
         }).catch(err => {
@@ -78,7 +78,7 @@ router.post('/editannouncement', (req, res)=> {
         else{
             res.json({
                 status:"SUCCESS",
-                message: "hahaha success",
+                message: "Announcement Successfully Updated!!",
                 data : docs,
             })  
         }
@@ -106,7 +106,7 @@ router.post('/deleteannouncement', (req, res)=> {
         else{
             res.json({
                 status:"SUCCESS",
-                message: "Delete Success",
+                message: "Announcement Successfully Deleted!!",
                 data : docs,
             })  
         }
